@@ -5,7 +5,6 @@ import { useRef, useState } from "react";
 
 const ImagePicker = ({ label, name }) => {
   const [selectedImage, setSelectedImage] = useState();
-
   const imageInput = useRef();
 
   const handlePickClick = () => {
@@ -17,13 +16,13 @@ const ImagePicker = ({ label, name }) => {
 
     if (!file) {
       setSelectedImage(null);
+      return;
     }
 
     const fileReader = new FileReader();
 
     fileReader.onload = () => {
       setSelectedImage(fileReader.result);
-      return;
     };
 
     fileReader.readAsDataURL(file);
@@ -40,13 +39,13 @@ const ImagePicker = ({ label, name }) => {
           )}
         </div>
         <input
-          ref={imageInput}
           className={classes.input}
-          onChange={handleImageChange}
           type="file"
           id={name}
-          name={name}
           accept="image/png, image/jpeg"
+          name={name}
+          ref={imageInput}
+          onChange={handleImageChange}
           required
         />
         <button
